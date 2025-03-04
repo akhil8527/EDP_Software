@@ -4,13 +4,13 @@ import sys
 import csv
 import json
 import array
+import numpy as np
+import pandas as pd
+import tkinter as tk
+from PIL import Image, ImageTk
 import matplotlib.pyplot as plt
 from scipy.signal import butter, lfilter
-import tkinter as tk
 from tkinter import Frame, Label, ttk, filedialog
-import pandas as pd
-import numpy as np
-from PIL import Image, ImageTk
 
 configFile = "./config.json"
 
@@ -348,7 +348,7 @@ class MainApp:
     
     def plotGraphs(self):
         # use fig whenever u want the output in a new window also specify the window size you want ans to be displayed 
-        fig = plt.figure(figsize =(20, 10)) 
+        fig = plt.figure(figsize =(20, 10))
 
         # get the total time above 80g for both raw data and filtered data
         with open('.\\output\\Cached_' + self.inputFile.split("/")[-1], mode='r') as infile:
@@ -374,10 +374,10 @@ class MainApp:
 
 
         # creating multiple plots in a single plot 
-        sub1 = plt.subplot(3, 3, 1) 
-        sub2 = plt.subplot(3, 3, 3) 
-        sub3 = plt.subplot(3, 3, 8) 
-        # sub4 = plt.subplot(3, 3, 7) 
+        sub1 = plt.subplot(3, 3, 1)   # display raw data
+        sub2 = plt.subplot(3, 3, 3)   # display filtered data
+        sub3 = plt.subplot(3, 3, 8)   # display overlapped data
+        # sub4 = plt.subplot(3, 3, 7)   # display velocity data (in km/hr)
 
 
         sub1.plot(plot_timestamp, cache_accSensorAvgRawData, 'r--')
@@ -412,7 +412,7 @@ class MainApp:
         sub3.set_title('Overlapped')
         sub3.axhline(y=80, color='black', linestyle='--')
         
-        
+
         figfile = os.path.splitext(os.path.basename(self.inputFile))[0]
         os.chdir('.\\output\\')
         plt.savefig(figfile+'.png')
