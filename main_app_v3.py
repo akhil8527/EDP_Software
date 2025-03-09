@@ -220,7 +220,7 @@ class MainApp:
             filter_type = configData['filter_type']['cfc']
             config_order = configData['filter_config']['order']
             samplesToPlot = self.input_sample.get()
-            print(samplesToPlot)
+            # print(samplesToPlot)
         except Exception as e:
             self.display_error(f"Error reading JSON file: {e}")
 
@@ -448,7 +448,9 @@ class MainApp:
         
         ### display peak velocity frequency value beside sub3
 
-        maxFrequency = round(max(proxySensorData) * 0.58086, 4)
+        filtered_numbers = [num for num in proxySensorData if num <= 50]
+
+        maxFrequency = round(max(filtered_numbers) * 0.58086, 4)
 
         fig.text(0.2, 0.35, "Peak Velocity", ha='left', va='center', fontsize=14, fontweight='normal', color='red')
         fig.text(0.19, 0.32, f"{maxFrequency} km/h", ha='left', va='center', fontsize=14, fontweight='bold', color='blue', bbox=dict(facecolor='lightyellow', alpha=0.5))
