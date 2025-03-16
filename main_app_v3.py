@@ -448,7 +448,7 @@ class MainApp:
         
         ### display peak velocity frequency value beside sub3
 
-        filtered_numbers = [num for num in proxySensorData if num <= 50]
+        filtered_numbers = [num for num in proxySensorData if num <= 43]
 
         maxFrequency = round(max(filtered_numbers) * 0.58086, 4)
 
